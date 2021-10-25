@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="signup.css" />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+    />
+  </head>
+  <body class="text-center">
+    <main class="form-signin">
+      <h1><span class="fa fa-sign-in"></span> Sign Up!</h1>
+      <form action="/signup" method="post">
+        <div class="form-floating">
+          <label for="floatingInput"></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Name"
+            name="email"
+          />
+        </div>
+        <div class="form-floating">
+          <label for=" floatingPassword"></label>
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            name="password"
+          />
+        </div>
+        <button class="w-100 btn btn-sm btn-primary" type="submit">
+          Submit
+        </button>
+      </form>
+
+      <p>Already have an account? <a href="/login">Login</a></p>
+      <p>Or go <a href="/">home</a>.</p>
+    </main>
+  </body>
+</html>
