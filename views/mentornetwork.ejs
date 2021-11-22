@@ -24,9 +24,8 @@
           </div>
         </div>
         <!-- <% if(mentee.length != 0) {%> -->
-        <% let filter = mentee.filter(obj => obj.stack.includes(...mentor[0].special)) %>
+        <% let filter = mentee.filter(obj => obj.stack.some(ele => ele.includes(...mentor[0].special))) %>
         <% console.log(filter)%>
-        <% console.log(mentor[0])%>
         <!-- <% console.log(mentee) %>
         <% console.log(mentor)%> -->
         <% for(let i=0; i<filter.length; i++) {%>

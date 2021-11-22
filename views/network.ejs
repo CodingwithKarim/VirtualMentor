@@ -25,7 +25,7 @@
         </div>
         <% if(mentor.length != 0) {%>
         <% console.log(mentee[0].stack) %>
-        <% let filter = mentor.filter(obj => obj.special.includes(...mentee[0].stack)) %>
+        <% let filter = mentor.filter(obj => obj.special.some(ele => ele.includes(...mentee[0].stack))) %>
         <% console.log(filter.length) %>
         <% for(let i=0; i<filter.length; i++) {%>
         <div class="my-3 p-3 bg-white rounded box-shadow">
