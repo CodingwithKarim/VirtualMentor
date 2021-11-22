@@ -11,7 +11,7 @@
     <link rel='stylesheet' href="student.css">
     <title>Document</title>
 </head>
-<body>
+<body id="bootstrap-overide">
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
           <div class="inner">
@@ -30,31 +30,66 @@
           <p class="lead">A mentor is someone who helps you grow your skills, make better decisions, and gain new perspectives on your life and career. As a mentee, your mentor will leverage their experience to give you guidance on your career or life now and in the future. 
 
             Rather than learning through trial and error, a mentor is a person you can look to for direction and a role model to imitate. </p>
-            <form class="needs-validation" action="/student" method="post" novalidate>
+            <form class="needs-validation" enctype="multipart/form-data" action="/student" method="post" >
                 <div class="form-row">
                   <div class="col-md-4 mb-3">
-                    <label for="validationTooltip01">Full Name</label>
-                    <input type="text" class="form-control" id="validationTooltip01" placeholder="Enrique Sanchez" name="name" required>
+                    <div class="custom-file">
+                      <label class="custom-file-label" for="inputGroupFile03">Add Photo</label>
+                      <input type="file" class="custom-file-input" id="inputGroupFile03" name="file-to-upload">
+                      
+                    </div>
                     <div class="valid-tooltip">
                       Looks good!
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label for="validationTooltip02">Tech Stack</label>
-                    <input type="text" class="form-control" id="validationTooltip02" placeholder="MERN" name="stack"  required>
+                    <label for="validationTooltip02">Personal Goals</label>
+                    <input type="text" class="form-control" id="validationTooltip02" placeholder="MERN" name="goals"  required>
                     <div class="valid-tooltip">
                       Looks good!
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label for="validationTooltipUsername">Goals</label>
+                    <label for="validationTooltipUsername">Tech Interests</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="validationTooltipUsername" placeholder="I would like to continue to learn" aria-describedby="validationTooltipUsernamePrepend" name="goals" required>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Python" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox1">Python</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="JavaScript" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox2">JavaScript</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Java" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox3">Java</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="C" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox1">C</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="C++" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox2">C++</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="PHP" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox3">PHP</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Swift" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox1">Swift</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Rust" name="stack">
+                        <label class="form-check-label" for="inlineCheckbox2">Rust</label>
+                      </div>
                       <div class="invalid-tooltip">
                         Please choose a unique and valid username.
                       </div>
                     </div>
                   </div>
+                  
                 </div>
                 
                 <button class="btn btn-primary" type="submit">Submit form</button>

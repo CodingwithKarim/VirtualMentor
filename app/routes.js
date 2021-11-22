@@ -1,12 +1,23 @@
-const { resourceLimits } = require("worker_threads");
+// const { resourceLimits } = require("worker_threads");
 
-module.exports = function (app, passport, db) {
+module.exports = function (app, passport, db, multer, ObjectId) {
   //app is express dependency in server js, passport is dependecny in server js, db is database that is connected from server js
 
   // normal routes ===============================================================
 
   // show the home page (will also have our login links)
   //renders the index.ejs file
+  var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'public/images/uploads')
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now() + ".png")
+    }
+  });
+  var upload = multer({storage: storage}); 
+
+
   app.get("/", function (req, res) {
     res.render("index.ejs");
   });
@@ -14,6 +25,11 @@ module.exports = function (app, passport, db) {
   app.get("/login", function (req, res) {
     res.render("login.ejs", { message: req.flash("loginMessage") });
   });
+
+  app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/home', // redirect to the secure profile section
@@ -38,52 +54,87 @@ app.get('/home', isLoggedIn, function(req, res) {
       })
 });
 
-
 app.get('/student', isLoggedIn, function(req, res) {
-    db.collection('messages').find().toArray((err, result) => {
-      if (err) return console.log(err)
       res.render('student.ejs', {
         user : req.user,
-        messages: result
       })
     })
-});
 
-app.post('/student', (req, res) => {
-    db.collection('messages').insert({name: req.body.name, stack: req.body.stack, goals: req.body.goals}, (err, result) => {
-      if (err) return console.log(err)
-      console.log('saved to database')
+  app.post('/student', isLoggedIn, upload.single('file-to-upload'), (req, res) => {
+    let userID = ObjectId(req.user._id)
+    db.collection('mentee')
+    .findOneAndUpdate({postedBy: userID}, {
+      $set: {
+        name: req.user.local.name,
+        stack: req.body.stack,
+        goals: req.body.goals,
+        postedBy: req.user._id,
+        img: 'images/uploads/' + req.file.filename
+      }
+    }, {
+      sort: {_id: -1},
+      upsert: true
+    }, (err, result) => {
+      if (err) return res.send(err)
       res.redirect('/network')
     })
   })
 
   app.get('/mentor', isLoggedIn, function(req, res) {
-    db.collection('mentor').find().toArray((err, result) => {
-      if (err) return console.log(err)
       res.render('mentor.ejs', {
         user : req.user,
-        mentor: result
       })
     })
-});
 
-app.post('/mentor', (req, res) => {
-    db.collection('mentor').insert({name: req.body.name, link: req.body.link, special: req.body.special}, (err, result) => {
-      if (err) return console.log(err)
-      console.log('saved to database')
-      res.redirect('/network')
+
+  app.post('/mentor', isLoggedIn, upload.single('file-to-upload'), (req, res) => {
+    let userID = ObjectId(req.user._id)
+    db.collection('mentor')
+    .findOneAndUpdate({postedBy: userID}, {
+      $set: {
+        name: req.user.local.name,
+        link: req.body.link,
+        special: req.body.special,
+        postedBy: req.user._id,
+        img: 'images/uploads/' + req.file.filename
+      }
+    }, {
+      sort: {_id: -1},
+      upsert: true
+    }, (err, result) => {
+      if (err) return res.send(err)
+      res.redirect('/mentornetwork')
     })
   })
 
 app.get('/network', isLoggedIn, function(req, res) {
-    db.collection('messages').find().toArray((err, result) => {
+    db.collection('mentor').find().toArray((err, result1) => {
       if (err) return console.log(err)
+      db.collection('mentee').find({postedBy: req.user._id}).toArray((err, result2) => {
+        if (err) return console.log(err)
       res.render('network.ejs', {
         user : req.user,
-        messages: result,
+        mentor: result1,
+        mentee: result2,
       })
     })
+  })
+})
+    
+
+app.get('/mentornetwork', isLoggedIn, function(req, res) {
+  db.collection('mentee').find().toArray((err, result1) => {
+    db.collection('mentor').find({postedBy: req.user._id}).toArray((err, result2) => {
+    if (err) return console.log(err)
+    res.render('mentornetwork.ejs', {
+      user : req.user,
+      mentee: result1,
+      mentor: result2
+    })
+  })
+})
 });
+
 
 app.get('/mission', isLoggedIn, function(req, res) {
     res.render('mission.ejs', {
@@ -92,12 +143,9 @@ app.get('/mission', isLoggedIn, function(req, res) {
     })
 });
 
-
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
     res.redirect('/');
 }
-
-
 };

@@ -54,7 +54,9 @@ body {
 .masthead {
   margin-bottom: 2rem;
 }
-
+#bootstrap-overide .custom-file{
+  margin-top: 17%;
+}
 .masthead-brand {
   margin-bottom: 0;
 }
@@ -113,4 +115,8 @@ img{
  */
 .mastfoot {
   color: rgba(255, 255, 255, .5);
+}
+
+#bootstrap-overide .custom-file{
+  margin-top: 17%;
 }
