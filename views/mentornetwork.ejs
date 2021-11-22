@@ -23,7 +23,7 @@
             <h6 class="mb-0 text-white lh-100"><%= user.local.email %></h6>
           </div>
         </div>
-        <!-- <% if(mentee.length != 0) {%> -->
+        <% if(mentee.length != 0) {%>
         <% let filter = mentee.filter(obj => obj.stack.some(ele => ele.includes(...mentor[0].special))) %>
         <% console.log(filter)%>
         <!-- <% console.log(mentee) %>
