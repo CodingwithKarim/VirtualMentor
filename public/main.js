@@ -1,3 +1,16 @@
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
 
 const socket = io();
 const chatForm = document.getElementById('chat-form')
@@ -50,3 +63,4 @@ function outputUsers(users){
     ${users.map(user => `<li>${user.username}</li>`).join('')}
     `
 }
+

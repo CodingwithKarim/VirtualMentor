@@ -1,5 +1,7 @@
 // const { resourceLimits } = require("worker_threads");
 
+const user = require("./models/user");
+
 module.exports = function (app, passport, db, multer, ObjectId) {
   //app is express dependency in server js, passport is dependecny in server js, db is database that is connected from server js
 
@@ -111,6 +113,8 @@ app.get('/student', isLoggedIn, function(req, res) {
       res.redirect('/mentornetwork')
     })
   })
+
+
 
 app.get('/network', isLoggedIn, function(req, res) {
     db.collection('mentor').find().toArray((err, result1) => {

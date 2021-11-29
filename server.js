@@ -38,12 +38,14 @@ app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 const botName ='Bot'
-// console.log(db)
+console.log(db)
 // console.log(req.user)
 
 
 
+
 io.on('connection', socket => {
+  // console.log(db)
   socket.on('joinRoom', ({username, room}) => {
   db.collection('test')
   .findOneAndUpdate({name: username}, {
@@ -124,3 +126,4 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // launch ======================================================================
 server.listen(port);
 console.log('The magic happens on port ' + port);
+

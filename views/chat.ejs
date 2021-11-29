@@ -13,11 +13,11 @@
     <title>ChatCord App</title>
   </head>
   <body>
-    <% console.log(room[0].room) %>
+    
     <div class="chat-container">
       <header class="chat-header">
-        <h1><i class="fas fa-smile"></i> ChatCord</h1>
-        <a id="leave-btn" class="btn">Leave Room</a>
+        <h1><i class="fas fa-sms"></i> VirtualChat</h1>
+        <a id="leave-btn" href="/chatform" class="btn">Leave Room</a>
       </header>
       <main class="chat-main">
         <div class="chat-sidebar">
@@ -30,7 +30,9 @@
        
         <div class="chat-messages">
 
-      
+       
+       <% if (room.length != 0) {%>
+       <% console.log(room)%>
         <% let filter = messages.filter(obj=> obj.room === room[0].room) %>
           <% for(let i = 0; i <filter.length; i++) {%>
             <div class="message">
@@ -39,6 +41,7 @@
             </p>
             <p class="text"><%= filter[i].message.text %></p>
             </div>
+          <% } %>
           <% } %>
         </div>
       </main>
