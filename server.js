@@ -12,6 +12,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var configDB = require('./config/database.js');
+const http = require('http')
+const server = http.createServer(app)
+const socketio = require('socket.io')
+const io = socketio(server)
+const formatMessage = require('./utils/messages.js')
+const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users.js')
 
 var db
 
@@ -19,6 +25,7 @@ var db
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
   db = database
+  
   require('./app/routes.js')(app, passport, db, multer, ObjectId);
 }); // connect to our database
 
@@ -30,6 +37,75 @@ app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
+const botName ='Bot'
+// console.log(db)
+// console.log(req.user)
+
+
+
+io.on('connection', socket => {
+  socket.on('joinRoom', ({username, room}) => {
+  db.collection('test')
+  .findOneAndUpdate({name: username}, {
+    $set: {
+      name: username,
+      room: room
+    }
+  }, {
+    sort: {_id: -1},
+    upsert: true
+  }, (err, result) => {
+    if (err) return console.log(err)
+  })
+ 
+  
+
+  const user = userJoin(socket.id, username, room)
+  // console.log(user)
+  socket.join(user.room)
+  
+  socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'))
+
+
+  socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has entered chat!`));
+
+  io.to(user.room).emit('roomUsers', {
+    room: user.room,
+    users: getRoomUsers(user.room)
+  })
+  
+  })
+  console.log('New Chat Connection')
+  // console.log(username)
+  
+  
+
+
+  socket.on('chatMessage', (msg) => {
+    const user = getCurrentUser(socket.id)
+    io.to(user.room).emit('message', formatMessage(user.username, msg))
+    // console.log(user.room)
+    db.collection('messages').insert({message: formatMessage(user.username, msg), room: user.room}, (err, result) => {
+      if (err) return console.log(err)
+      console.log('saved to database')
+    })
+
+   
+  })
+
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id)
+    if(user){
+      io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`))
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      })
+    }
+    
+  })
+})
+
 
 
 app.set('view engine', 'ejs'); // set up ejs for templating
@@ -46,5 +122,5 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 // launch ======================================================================
-app.listen(port);
+server.listen(port);
 console.log('The magic happens on port ' + port);

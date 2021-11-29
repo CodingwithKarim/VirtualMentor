@@ -17,14 +17,14 @@
           <img class="mr-3" src="<%= mentor[0].img %>" alt="" width="48" height="48">
           <section style="margin: 0 auto;">
           <h2>Welcome <%= mentor[0].name %></h2>
-          <a href="/home"><button style="margin-left:14%;">Back To Home</button></a>
+          <a href="/home"><button style="margin-left:22%;">Back To Home</button></a>
           </section>
           <div class="lh-100">
             <h6 class="mb-0 text-white lh-100"><%= user.local.email %></h6>
           </div>
         </div>
         <% if(mentee.length != 0) {%>
-        <% let filter = mentee.filter(obj => obj.stack.some(ele => ele.includes(...mentor[0].special))) %>
+        <% let filter = mentee.filter(obj => obj.stack.some(e => mentor[0].special.includes(e)))%>
         <% console.log(filter)%>
         <!-- <% console.log(mentee) %>
         <% console.log(mentor)%> -->

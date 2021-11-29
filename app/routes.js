@@ -4,7 +4,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   //app is express dependency in server js, passport is dependecny in server js, db is database that is connected from server js
 
   // normal routes ===============================================================
-
+// console.log(db)
   // show the home page (will also have our login links)
   //renders the index.ejs file
   var storage = multer.diskStorage({
@@ -17,6 +17,7 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   });
   var upload = multer({storage: storage}); 
 
+  // console.log(db)
 
   app.get("/", function (req, res) {
     res.render("index.ejs");
@@ -66,11 +67,15 @@ app.get('/student', isLoggedIn, function(req, res) {
     .findOneAndUpdate({postedBy: userID}, {
       $set: {
         name: req.user.local.name,
-        stack: req.body.stack,
+        // stack: req.body.stack,
         goals: req.body.goals,
         postedBy: req.user._id,
         img: 'images/uploads/' + req.file.filename
-      }
+      },
+
+      $push: {
+        stack: req.body.stack
+      },
     }, {
       sort: {_id: -1},
       upsert: true
@@ -142,6 +147,35 @@ app.get('/mission', isLoggedIn, function(req, res) {
      
     })
 });
+
+app.get("/chat.ejs", isLoggedIn, function (req, res) {
+  db.collection('messages').find().toArray((err, result) => {
+    db.collection('test').find({name: req.user.local.name}).toArray((err, result1) => {
+    if (err) return console.log(err)
+  res.render("chat.ejs",{
+    user : req.user,
+    messages: result,
+    room: result1
+  })
+})
+})
+})
+
+app.get("/chatform", isLoggedIn, function (req, res) {
+  res.render("chatform.ejs",{
+    user : req.user
+  })
+ 
+});
+
+// app.post("/test", (req, res) => {
+//   db.collection('test')
+//   .save({name: req.body.msg}, (err, result) => {
+//     if (err) return console.log(err)
+//     console.log('saved to database')
+//     res.redirect('/chat.ejs')
+//   })
+// })
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())

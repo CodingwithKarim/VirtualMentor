@@ -24,9 +24,9 @@
           </div>
         </div>
         <% if(mentor.length != 0) {%>
-        <% console.log(mentee[0].stack) %>
-        <% let filter = mentor.filter(obj => obj.special.some(ele => ele.includes(...mentee[0].stack))) %>
-        <% console.log(filter.length) %>
+        <% let filter = mentor.filter(obj => obj.special.some(e => mentee[0].stack.includes(e))) %>
+        <% console.log(mentor) %>
+        <% console.log(mentee) %>
         <% for(let i=0; i<filter.length; i++) {%>
         <div class="my-3 p-3 bg-white rounded box-shadow">
           <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
