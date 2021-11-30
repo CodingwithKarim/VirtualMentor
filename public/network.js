@@ -23,7 +23,7 @@ Array.from(requestConnection).forEach(function(element) {
       })
       .then(data => {
         console.log(data)
-        // window.location.reload(true)
+        window.location.reload(true)
       })
     });
 });

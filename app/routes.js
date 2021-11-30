@@ -202,14 +202,29 @@ app.get("/connections", isLoggedIn, function (req, res) {
 })
 })
 
-// app.post("/test", (req, res) => {
-//   db.collection('test')
-//   .save({name: req.body.msg}, (err, result) => {
-//     if (err) return console.log(err)
-//     console.log('saved to database')
-//     res.redirect('/chat.ejs')
-//   })
-// })
+app.put('/acceptRequest', (req, res) => {
+  db.collection('connections')
+  .findOneAndUpdate({_id: ObjectId(req.body.id)}, {
+    $set: {
+      status : 'accepted'
+    }
+  }, {
+    sort: {_id: -1},
+    upsert: false
+  }, (err, result) => {
+    if (err) return res.send(err)
+    res.send(result)
+  })
+})
+
+app.delete('/declineRequest', (req, res) => {
+  db.collection('connections')
+  .findOneAndDelete({_id: ObjectId(req.body.id)}, (err, result) => {
+    if (err) return res.send(err)
+    res.send('Request Declined')
+  })
+})
+
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())

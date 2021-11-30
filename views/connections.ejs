@@ -26,12 +26,15 @@
           <div class="container-fluid">
             <ul class="list-group">
             <% for(let i =0; i < connections.length; i++) {%>
-                <li class="list-group-item">Request From: <%= connections[i].mentee %> <i class="fas fa-vote-yea" data-id="<%= connections[i]._id %>"></i><i class="fas fa-user-minus"></i></li>
+            <% if(connections[i].status === 'pending') {%>
+                <li class="list-group-item">Request From: <%= connections[i].mentee %> <i class="fas fa-vote-yea" data-id="<%= connections[i]._id %>"></i><i class="fas fa-user-minus" data-id="<%= connections[i]._id %>"></i></li>
                 
 
-            <% } %>
+           
+                <% } %>
               </ul>
-
+              <% } %>
+           
 
           </div>
 
