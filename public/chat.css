@@ -179,6 +179,13 @@ a {
 	width: 100%;
 }
 
+#bootstrap-overide .backhome{
+	margin-top: 1%;
+	font-size: 12px;
+	position: relative;
+	top: 5px
+}
+
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;

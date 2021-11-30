@@ -130,6 +130,25 @@ app.get('/network', isLoggedIn, function(req, res) {
   })
 })
     
+app.put('/requestConnection', (req, res) => {
+  let testID = ObjectId(req.body.id)
+  console.log(testID)
+  db.collection('connections')
+  .findOneAndUpdate({mentorID: req.body.id, requestFrom: req.body.user}, {
+    $set: {
+      mentorID: req.body.id,
+      mentorName: req.body.mentorName,
+      mentee: req.body.user,
+      status : 'pending'
+    }
+  }, {
+    sort: {_id: -1},
+    upsert: true
+  }, (err, result) => {
+    if (err) return res.send(err)
+    res.send(result)
+  })
+})
 
 app.get('/mentornetwork', isLoggedIn, function(req, res) {
   db.collection('mentee').find().toArray((err, result1) => {
@@ -171,6 +190,17 @@ app.get("/chatform", isLoggedIn, function (req, res) {
   })
  
 });
+
+app.get("/connections", isLoggedIn, function (req, res) {
+  db.collection('connections').find({mentorName: req.user.local.name}).toArray((err, result) => {
+    if (err) return console.log(err)
+  res.render("connections.ejs",{
+    user : req.user,
+    connections: result
+  
+  })
+})
+})
 
 // app.post("/test", (req, res) => {
 //   db.collection('test')

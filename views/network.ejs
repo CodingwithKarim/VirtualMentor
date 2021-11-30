@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/1b23973fb1.js" crossorigin="anonymous"></script>
-    <link rel='stylesheet' href="">
+    <link rel='stylesheet' href="network.css">
     <title>Document</title>
 </head>
-<body style="background-color: aliceblue;">
+<body id="bootstrap-overide" style="background-color: aliceblue;">
     <main role="main" class="container bootdey.com">
         <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-blue rounded box-shadow">
           <img class="mr-3" src="<%= mentee[0].img %>" alt="" width="48" height="48">
@@ -35,7 +35,8 @@
             <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
               <strong class="d-block text-gray-dark"><%= filter[i].name %></strong>
               <strong class="d-block text-gray-dark"><%= filter[i].special %></strong>
-              <%= filter[i].link %>
+              <strong class="d-block text-gray-dark"><%= filter[i].link %></strong>
+              <strong class="d-block text-gray-dark"><button data-id="<%= filter[i]._id %>" data-name="<%= user.local.name %>" data-mentor="<%= filter[i].name %>" type="button" class="btn btn-outline-primary btn-sm">Request Connection</button></strong>
             </p>
           </div>
           </div>
@@ -75,6 +76,6 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-      <script src="main.js"></script>
+      <script src="network.js"></script>
 </body>
 </html>

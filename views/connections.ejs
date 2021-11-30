@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/1b23973fb1.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href="network.css">
+    <title>Document</title>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">VirtualMentors</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/home">Home <span class="sr-only">(current)</span></a>
+              </div>
+            </div>
+          </nav>
+
+          <div class="container-fluid">
+            <ul class="list-group">
+            <% for(let i =0; i < connections.length; i++) {%>
+                <li class="list-group-item">Request From: <%= connections[i].mentee %> <i class="fas fa-vote-yea" data-id="<%= connections[i]._id %>"></i><i class="fas fa-user-minus"></i></li>
+                
+
+            <% } %>
+              </ul>
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="connections.js"></script>
+</body>
+</head>
+</html>
