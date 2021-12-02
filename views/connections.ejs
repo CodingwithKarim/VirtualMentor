@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/1b23973fb1.js" crossorigin="anonymous"></script>
-    <link rel='stylesheet' href="network.css">
+    <link rel='stylesheet' href="mentorConnections.css">
     <title>Document</title>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,26 +22,127 @@
               </div>
             </div>
           </nav>
-
-          <div class="container-fluid">
-            <ul class="list-group">
-            <% for(let i =0; i < connections.length; i++) {%>
-            <% if(connections[i].status === 'pending') {%>
-                <li class="list-group-item">Request From: <%= connections[i].mentee %> <i class="fas fa-vote-yea" data-id="<%= connections[i]._id %>"></i><i class="fas fa-user-minus" data-id="<%= connections[i]._id %>"></i></li>
-                
-
-           
-                <% } %>
-              </ul>
-              <% } %>
-           
-
-          </div>
+          
 
 
 
-
-
+          <div class="container">
+            <div class="container-fluid p-0">
+            <h1 class="h3 mb-3">Connection Requests</h1>
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header pb-0">
+                    <div class="card-actions float-right">
+                      <div class="dropdown show">
+                        <a href="#" data-toggle="dropdown" data-display="static">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                        </a>
+        
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <h5 class="card-title mb-0"><%= mentor[0].name[0].toUpperCase() + mentor[0].name.slice(1) %>'s Requests</h5>
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-striped" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Request From</th>
+                          <th>Goals</th>
+                          <th>Email</th>
+                          <th>Accept</th>
+                          <th>Decline</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        <% let firstFilter = connections.filter(obj => obj.status != 'accepted')%>
+                        <% console.log(firstFilter) %>
+                        <% for(let i =0; i < firstFilter.length; i++) {%>
+                        <tr>
+                          <td><img src="<%= firstFilter[i].img %>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                          <td><%= firstFilter[i].mentee %></td>
+                          <td><%= firstFilter[i].menteeGoals %></td>
+                          <td><%= firstFilter[i].menteeStack %></td>
+                          <td><i class="fas fa-check-square accept" data-test="<%= firstFilter[i]._id %>" data-mentee="<%= firstFilter[i].mentee%>"></i></td>
+                          <td><i class="fas fa-user-minus delete" data-ID="<%= firstFilter[i]._id %>"></i></td>
+                        </tr>
+                        <% } %>
+                       
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+              </div>
+              
+              <div class="container">
+                <div class="container-fluid p-0">
+                <h1 class="h3 mb-3"><%= mentor[0].name[0].toUpperCase() + mentor[0].name.slice(1) %>'s Mentee's</h1>
+                <div class="row">
+                  <div class="col-xl-12">
+                    <div class="card">
+                      <div class="card-header pb-0">
+                        <div class="card-actions float-right">
+                          <div class="dropdown show">
+                            <a href="#" data-toggle="dropdown" data-display="static">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                            </a>
+            
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <div class="card-body">
+                        <table class="table table-striped" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Mentee Name</th>
+                              <th>Goals</th>
+                              <th>Tech Subjects</th>
+                              <th>Send Message</th>
+                              <th>Delete</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% let filter = connections.filter(obj=> obj.status === 'accepted') %>
+                            <% for(let i =0; i < filter.length; i++) {%>
+                            <tr>
+                              <td><img src="<%= filter[i].img %>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                              <td><%= filter[i].mentee %></td>
+                              <td><%= filter[i].menteeGoals %></td>
+                              <td><%= filter[i].menteeStack %></td>
+                              <form action="/room" method="get">
+                              <!-- <input type="hidden" value="<%= filter[i].mentee %>" name="mentee"> -->
+                              <input type="hidden" value="<%= filter[i]._id %>" name="room">
+                              <td><button type="submit">Send Message</button></td>
+                              </form>
+                              <td><i class="fas fa-user-minus delete" data-id="<%= connections[i]._id %>"></i></td>
+                            </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
 
 
 

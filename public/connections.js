@@ -1,15 +1,17 @@
-let acceptRequest = document.querySelectorAll('.fa-vote-yea')
-let declineRequest = document.querySelectorAll('.fa-user-minus')
+let acceptRequest = document.querySelectorAll('.accept')
+let declineRequest = document.querySelectorAll('.delete')
 
 Array.from(acceptRequest).forEach(function(element) {
     element.addEventListener('click', function(e){
-        console.log(e.target.dataset.id)
-        let id = e.target.dataset.id
+        console.log(e.target.dataset.test)
+        let test = e.target.dataset.test
+        let name = e.target.dataset.mentee
       fetch('acceptRequest', {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          'id' : id,
+          'test' : test,
+          'name': name
         })
       })
       .then(response => {
