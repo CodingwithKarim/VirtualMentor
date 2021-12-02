@@ -70,7 +70,6 @@ io.on("connection", (socket) => {
     // console.log(user)
     socket.join(user.room);
 
-    socket.emit("message", formatMessage(botName, "Welcome to ChatCord!"));
 
     io.to(user.room).emit("roomUsers", {
       room: user.room,
