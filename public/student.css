@@ -72,6 +72,7 @@ img{
   color: rgba(255, 255, 255, .5);
   background-color: transparent;
   border-bottom: .25rem solid transparent;
+  font-size: 12px;
 }
 
 .nav-masthead .nav-link:hover,
@@ -120,3 +121,9 @@ img{
 #bootstrap-overide .custom-file{
   margin-top: 17%;
 }
+
+#bootstrap-overide .col-md-4{
+  
+  padding-left:15px;
+}
+

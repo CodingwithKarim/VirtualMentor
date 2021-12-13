@@ -43,8 +43,6 @@ app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 const botName = "Bot";
-console.log(db);
-// console.log(req.user)
 
 io.on("connection", (socket) => {
   // console.log(db)
@@ -70,18 +68,15 @@ io.on("connection", (socket) => {
     // console.log(user)
     socket.join(user.room);
 
-
     io.to(user.room).emit("roomUsers", {
       room: user.room,
       users: getRoomUsers(user.room),
     });
   });
   console.log("New Chat Connection");
-  
 
   socket.on("join-room", ({ mentee, room }) => {
     console.log(mentee);
-    // socket.to(roomId).broadcast.emit('user-connected', userId)
     socket.emit("message", formatMessage(botName, "Welcome to ChatCord!"));
     socket.broadcast.to(room).emit("user-connected", mentee);
 

@@ -8,19 +8,25 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/1b23973fb1.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hahmlet:wght@500&family=Nunito+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel='stylesheet' href="mentorConnections.css">
     <title>Document</title>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <body id="bootstrap-overide">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: azure;">
+           
             <a class="navbar-brand" href="#">VirtualMentors</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
+           
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" href="/home"><button type="button" class="btn btn-outline-primary">Back Home</button><span class="sr-only">(current)</span></a>
               </div>
             </div>
+          
           </nav>
           
 
@@ -28,7 +34,7 @@
 
           <div class="container">
             <div class="container-fluid p-0">
-            <h1 class="h3 mb-3">Connection Requests</h1>
+            <h1 class="h3 mb-3 titles">Connection Requests</h1>
             <div class="row">
               <div class="col-xl-12">
                 <div class="card">
@@ -47,18 +53,18 @@
                       </div>
                     </div>
                     
-                    <h5 class="card-title mb-0"><%= mentor[0].name[0].toUpperCase() + mentor[0].name.slice(1) %>'s Requests</h5>
+                   
                   </div>
                   <div class="card-body">
-                    <table class="table table-striped" style="width:100%">
-                      <thead>
+                    <table class="table table-bordered table-hover" style="width:100%">
+                      <thead class="thead-dark">
                         <tr>
-                          <th></th>
-                          <th>Request From</th>
-                          <th>Goals</th>
-                          <th>Email</th>
-                          <th>Accept</th>
-                          <th>Decline</th>
+                          <th class="tags">Mentee Picture</th>
+                          <th class="tags">Request From</th>
+                          <th class="tags">Goals</th>
+                          <th class="tags">Help With</th>
+                          <th class="tags">Accept</th>
+                          <th class="tags">Decline</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -67,10 +73,10 @@
                         <% console.log(firstFilter) %>
                         <% for(let i =0; i < firstFilter.length; i++) {%>
                         <tr>
-                          <td><img src="<%= firstFilter[i].img %>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
-                          <td><%= firstFilter[i].mentee %></td>
-                          <td><%= firstFilter[i].menteeGoals %></td>
-                          <td><%= firstFilter[i].menteeStack %></td>
+                          <td class="tags"><img src="<%= firstFilter[i].img %>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                          <td class="font tags"><%= firstFilter[i].mentee %></td>
+                          <td class="font tags"><%= firstFilter[i].menteeGoals %></td>
+                          <td class="font tags"><%= firstFilter[i].menteeStack %></td>
                           <td><i class="fas fa-check-square accept" data-test="<%= firstFilter[i]._id %>" data-mentee="<%= firstFilter[i].mentee%>"></i></td>
                           <td><i class="fas fa-user-minus delete" data-ID="<%= firstFilter[i]._id %>"></i></td>
                         </tr>
@@ -87,7 +93,7 @@
               
               <div class="container">
                 <div class="container-fluid p-0">
-                <h1 class="h3 mb-3"><%= mentor[0].name[0].toUpperCase() + mentor[0].name.slice(1) %>'s Mentee's</h1>
+                <h1 class="h3 mb-3 titles"><%= mentor[0].name[0].toUpperCase() + mentor[0].name.slice(1) %>'s Mentee's</h1>
                 <div class="row">
                   <div class="col-xl-12">
                     <div class="card">
@@ -108,15 +114,15 @@
                         
                       </div>
                       <div class="card-body">
-                        <table class="table table-striped" style="width:100%">
-                          <thead>
+                        <table class="table table-bordered table-hover" style="width:100%">
+                          <thead class="thead-dark">
                             <tr>
-                              <th></th>
-                              <th>Mentee Name</th>
-                              <th>Goals</th>
-                              <th>Tech Subjects</th>
-                              <th>Send Message</th>
-                              <th>Delete</th>
+                              <th class="tags">Mentee Picture</th>
+                              <th class="tags" scope="col">Mentee Name</th>
+                              <th class="tags" scope="col">Goals</th>
+                              <th class="tags" scope="col">Help With</th>
+                              <th class="tags" scope="col">Send Message</th>
+                              <th class="tags" scope="col">Withdraw Connection</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -124,13 +130,13 @@
                             <% for(let i =0; i < filter.length; i++) {%>
                             <tr>
                               <td><img src="<%= filter[i].img %>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
-                              <td><%= filter[i].mentee %></td>
-                              <td><%= filter[i].menteeGoals %></td>
-                              <td><%= filter[i].menteeStack %></td>
+                              <td class="font tags"><%= filter[i].mentee %></td>
+                              <td class="font goals"><%= filter[i].menteeGoals %></td>
+                              <td class="font goals"><%= filter[i].menteeStack %></td>
                               <form action="/room" method="get">
                               <!-- <input type="hidden" value="<%= filter[i].mentee %>" name="mentee"> -->
                               <input type="hidden" value="<%= filter[i]._id %>" name="room">
-                              <td><button type="submit">Send Message</button></td>
+                              <td class="tags"><button type="submit">Send Message</button></td>
                               </form>
                               <td><i class="fas fa-user-minus delete" data-id="<%= connections[i]._id %>"></i></td>
                             </tr>

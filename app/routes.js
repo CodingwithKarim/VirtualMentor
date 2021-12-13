@@ -1,14 +1,7 @@
-// const { resourceLimits } = require("worker_threads");
-
 const user = require("./models/user");
 
 module.exports = function (app, passport, db, multer, ObjectId) {
-  //app is express dependency in server js, passport is dependecny in server js, db is database that is connected from server js
-
-  // normal routes ===============================================================
-  // console.log(db)
-  // show the home page (will also have our login links)
-  //renders the index.ejs file
+  
   var storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, "public/images/uploads");
@@ -127,10 +120,11 @@ module.exports = function (app, passport, db, multer, ObjectId) {
           $set: {
             name: req.user.local.name,
             link: req.body.link,
-            special: req.body.special,
+            special: [req.body.special],
             postedBy: req.user._id,
             img: "images/uploads/" + req.file.filename,
           },
+
         },
         {
           sort: { _id: -1 },
@@ -199,7 +193,9 @@ module.exports = function (app, passport, db, multer, ObjectId) {
       { _id: ObjectId(req.body.id) },
       {
         $push: {
-          personalMessage: req.body.personalMessage,
+          personalMessage: [req.body.personalMessage, req.body.name],
+       
+
         },
       },
       {
@@ -319,6 +315,23 @@ module.exports = function (app, passport, db, multer, ObjectId) {
         res.send("Request Declined");
       }
     );
+  });
+
+  app.get("/menteeconnections", isLoggedIn, function (req, res) {
+    db.collection("connections")
+      .find({ mentee: req.user.local.name })
+      .toArray((err, result) => {
+        db.collection("mentor")
+          .find()
+          .toArray((err, result1) => {
+            if (err) return console.log(err);
+            res.render("menteeconnections.ejs", {
+              user: req.user,
+              connections: result,
+              mentor: result1,
+            });
+          });
+      });
   });
 
   function isLoggedIn(req, res, next) {

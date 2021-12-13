@@ -12,24 +12,26 @@
   <% console.log(connections[0].personalMessage) %>
     <div class="chat-container">
         <header class="chat-header">
-          <h1><i class="fas fa-sms"></i> Private Chat</h1>
+          <h1><i class="fas fa-sms"></i><%= connections[0].mentorName%>  &  <%= connections[0].mentee%> Private Chat </h1>
           <a id="leave-btn" href="/chatform" class="btn">Leave Room</a>
         </header>
         <main class="chat-main">
           <div class="chat-sidebar">
-            
+            <h3><i class="fas fa-comments"></i> Room Code: </h3>
+            <h2 id="room-name"><%= connections[0]._id.valueOf().split("").reverse().splice(15).join("")%></h2>
             
             <ul id="users">
+              <li> </li>
             </ul>
           </div>
           <div class="chat-messages">
             <% if(connections[0].personalMessage.length > 0) {%>
             <% for(let i = 0; i < connections[0].personalMessage.length; i++) {%>
-            <div class="message"> From: <%= connections[0].mentorName%>
+            <div class="message"> From: <%= connections[0].personalMessage[i][1] %>
               <p class="meta">
               <span></span>
                 </p>
-                <p class="text"> <%= connections[0].personalMessage[i] %></p>
+                <p class="text"> <%= connections[0].personalMessage[i][0] %></p>
             </div>
             <% } %>
             <% } %>
@@ -38,7 +40,8 @@
 
           <div class="chat-form-container">
             <form id="chat-form" action="/personalMessage" method="post">
-              <input type="hidden" value="<%= connections[0]._id%>" name="id">
+              <input type="hidden" value="<%= connections[0]._id%>" name="id"> 
+              <input type="hidden" value="<%= user.local.name%>" name="name">
               <input
                 id="msg"
                 type="text"

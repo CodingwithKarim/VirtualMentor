@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/1b23973fb1.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hahmlet:wght@500&family=Nunito+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href="mentorConnections.css">
+    <title>Document</title>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">VirtualMentors</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/home">Home <span class="sr-only">(current)</span></a>
+              </div>
+            </div>
+          </nav>
+          
+
+
+
+         
+              
+              <div class="container">
+                <div class="container-fluid p-0">
+                <h1 class="h3 mb-3 titles"><%= user.local.name %>'s Mentors</h1>
+                <div class="row">
+                  <div class="col-xl-12">
+                    <div class="card">
+                      <div class="card-header pb-0">
+                        <div class="card-actions float-right">
+                          <div class="dropdown show">
+                            <a href="#" data-toggle="dropdown" data-display="static">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                            </a>
+            
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <div class="card-body">
+                        <table class="table table-striped" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>Mentor Picture</th>
+                              <th>Mentor Name</th>
+                              <th>Goals</th>
+                              <th>Tech Subjects</th>
+                              <th>Private Messaging</th>
+                              <th>Remove Mentor</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% let filter = connections.filter(obj=> obj.status === 'accepted') %>
+                            <% for(let i =0; i < filter.length; i++) {%>
+                            <% let mentorFilter = mentor.filter(obj=> obj.name === filter[i].mentorName && obj.connections.includes(user.local.name)) %>
+                            <tr>
+                              <td><img class="mentorpics" src="<%= mentorFilter[0].img %>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                              <% console.log(mentorFilter) %>
+                              <td class="font"><%= filter[i].mentorName %></td>
+                              <td class="font"><%= mentorFilter[0].link %></td>
+                              <td class="font"><%= mentorFilter[0].special %></td>
+                              <form action="/room" method="get">
+                              <!-- <input type="hidden" value="<%= filter[i].mentee %>" name="mentee"> -->
+                              <input type="hidden" value="<%= filter[i]._id %>" name="room">
+                              <td><button type="submit">Send Message</button></td>
+                              </form>
+                              <td><i class="fas fa-user-minus delete" data-id="<%= connections[i]._id %>"></i></td>
+                            </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+
+
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="connections.js"></script>
+</body>
+</head>
+</html>

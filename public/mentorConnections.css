@@ -64,3 +64,60 @@ body{margin-top:20px;
         background-color: #fff;
         border-bottom: 0 solid transparent;
     }
+
+    #bootstrap-overide .navbar-brand{
+        font-size: 25px;
+        font-family: 'Bebas Neue', cursive;
+    }
+
+    #bootstrap-overide .rounded-circle{
+        width: 15vh;
+        height: 15vh;
+    }
+
+    .font{
+        font-size: 14px;
+        font-family: 'Nunito Sans', sans-serif;
+      
+    }
+
+    .goals{
+        width: 10%;
+    }
+
+    .navsection{
+        margin-left: 40%;
+    }
+
+    .titles{
+        font-family: 'Hahmlet', serif;
+        text-align: center;
+    }
+
+    #bootstrap-overide .container {
+        margin-bottom: 2%;
+    }
+
+    #bootstrap-overide {
+        background-color: aliceblue;
+    }
+
+    .accept {
+        font-size: 15px;
+        margin-left: 40%;
+    }
+
+    .delete{
+        font-size: 15px;
+        margin-left: 40%;
+    }
+
+    .tags{
+        text-align: center;  
+    }
+
+    .mentorpics{
+        width:100px;
+        height:100px;
+        border-radius: 50%;
+    }

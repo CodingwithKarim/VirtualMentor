@@ -8,42 +8,80 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/1b23973fb1.js" crossorigin="anonymous"></script>
-    <link rel='stylesheet' href="">
+    <link rel='stylesheet' href="network.css">
     <title>Document</title>
 </head>
 <body style="background-color: aliceblue;">
-    <main role="main" class="container bootdey.com">
-        <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-blue rounded box-shadow">
-          <img class="mr-3" src="<%= mentor[0].img %>" alt="" width="48" height="48">
-          <section style="margin: 0 auto;">
-          <h2>Welcome <%= mentor[0].name %></h2>
-          <a href="/home"><button style="margin-left:22%;">Back To Home</button></a>
-          </section>
-          <div class="lh-100">
-            <h6 class="mb-0 text-white lh-100"><%= user.local.email %></h6>
-          </div>
-        </div>
-        <% if(mentee.length != 0) {%>
-        <% let filter = mentee.filter(obj => obj.stack.some(e => mentor[0].special.includes(e)) && obj.name != mentor[0].name)%>
-        <% console.log(filter)%>
-        <!-- <% console.log(mentee) %>
-        <% console.log(mentor)%> -->
-        <% for(let i=0; i<filter.length; i++) {%>
-        <div class="my-3 p-3 bg-white rounded box-shadow">
-          <div class="media text-muted pt-3"> 
-            <img src="<%= filter[i].img %>" alt="" class="mr-2 rounded" width="32" height="32">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark"><%= filter[i].name %></strong>
-              <strong class="d-block text-gray-dark"><%= filter[i].stack %></strong>
-              <%= filter[i].goals %>
-            </p>
-          </div>
-          </div>
-          <% } %>
-          <% } %>
+  <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-blue rounded box-shadow">
+    <section style="width: 100%;">
+    <h2 class="networktitle">Welcome <%= mentor[0].name %></h2>
+    <a href="/home"><button style="margin-left:50%; margin-top: 1%;" type="button" class="btn btn-outline-primary backHome">Back Home</button></a>
+    </section>
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">John Doe</h6>
+    </div>
+  </div>
 
+ <% let filter = mentee.filter(obj => obj.stack.some(e => mentor[0].special.includes(e)) && obj.postedBy.valueOf() != user._id.valueOf()) %>
+<% for(let i=0; i<filter.length; i++) {%>
+<div class="container mt-4 mb-4">
+<div class="col-lg-12 mt-4 mt-lg-0">
+<div class="row">
+<div class="col-md-12">
+  <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+ 
+    <table class="table manage-candidates-top mb-0">
+      <thead class="mentorheader">
+        <tr>
+          <th><%= filter[i].name %></th>
+          <th class="text-center">Help With</th>
+          <th class="text-center">Mentee Goals</th>
+        
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="candidates-list">
+          <td class="title">
+            <div class="thumb">
+             
+              <img class="img-fluid" src="<%= filter[i].img %>" alt="">
+            
+            </div>
+            <div class="candidate-list-details">
+              <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                  <!-- <h5 class="mb-0"><a href="#"><%= filter[i].name %></a></h5> -->
+                </div>
+                <div class="candidate-list-option">
+                  <td>
+                  <ul class="list-unstyled">
+                    <h3 class="test"><%= filter[i].name %></h3>
+                    <ul class="list-group">
+                      <% filter[i].stack.forEach(function(obj){%> 
+                      <li class="list-group-item"><%= obj %></li>
+                      <% }) %>
+                    </ul>
+                  </td>
+    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="candidate-list-favourite-time text-center">
+            <a class="candidate-list-favourite order-2 text-danger" href="#"></a>
+            <span class="candidate-list-time order-1"><%= filter[i].goals%></span>
+          </td>
          
-      </main>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</div>
+</div>
+    <% } %> 
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
