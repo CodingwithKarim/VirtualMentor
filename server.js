@@ -47,23 +47,6 @@ const botName = "Bot";
 io.on("connection", (socket) => {
   // console.log(db)
   socket.on("joinRoom", ({ username, room }) => {
-    db.collection("test").findOneAndUpdate(
-      { name: username },
-      {
-        $set: {
-          name: username,
-          room: room,
-        },
-      },
-      {
-        sort: { _id: -1 },
-        upsert: true,
-      },
-      (err, result) => {
-        if (err) return console.log(err);
-      }
-    );
-
     const user = userJoin(socket.id, username, room);
     // console.log(user)
     socket.join(user.room);

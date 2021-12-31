@@ -233,21 +233,19 @@ module.exports = function (app, passport, db, multer, ObjectId) {
   });
 
   app.get("/chat.ejs", isLoggedIn, function (req, res) {
+    console.log(req.query.room)
     db.collection("messages")
-      .find()
+      .find({room: req.query.room})
       .toArray((err, result) => {
-        db.collection("test")
-          .find({ name: req.user.local.name })
-          .toArray((err, result1) => {
             if (err) return console.log(err);
             res.render("chat.ejs", {
               user: req.user,
-              messages: result,
-              room: result1,
+              messages: result
             });
           });
       });
-  });
+     
+  
 
   app.get("/chatform", isLoggedIn, function (req, res) {
     res.render("chatform.ejs", {

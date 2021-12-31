@@ -1,17 +1,3 @@
-(function()
-{
-  if( window.localStorage )
-  {
-    if( !localStorage.getItem('firstLoad') )
-    {
-      localStorage['firstLoad'] = true;
-      window.location.reload();
-    }  
-    else
-      localStorage.removeItem('firstLoad');
-  }
-})();
-
 const socket = io();
 const chatForm = document.getElementById('chat-form')
 const roomName = document.getElementById('room-name')
@@ -20,7 +6,7 @@ const {username, room} = Qs.parse(location.search, {
     ignoreQueryPrefix: true
 })
 
-socket.emit('joinRoom', {username, room})
+socket.emit('joinRoom', {username, room}, )
 
 socket.on('roomUsers', ({room, users}) => {
     outputRoomName(room)

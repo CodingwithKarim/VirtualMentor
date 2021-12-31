@@ -17,18 +17,25 @@
     <title>Document</title>
 </head>
 <body id="bootstrap-overide" style="background-color: aliceblue;">
-   
          <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-blue rounded box-shadow">
           <section style="width: 100%;">
-          <h2 class="networktitle">Welcome <%= mentee[0].name %></h2>
+          <% if(mentee.length > 0) {%>
+          <h2 class="networktitle">Welcome <%= mentee[0].name[0].toUpperCase() +  mentee[0].name.slice(1)  %></h2>
+          <% } %>
           <a href="/home"><button type="button" class="btn btn-outline-primary backHome">Back Home</button></a>
+          <% if(mentee.length === 0) {%>
+           
+            <script type="text/javascript">
+              alert('Please register as a Mentee to access this page!')
+            </script>
+            <% } %>
           </section>
           <div class="lh-100">
             <h6 class="mb-0 text-white lh-100">John Doe</h6>
           </div>
         </div>
-      
-       <% let filter = mentor.filter(obj => obj.special.some(e => mentee[0].stack.includes(e)) && obj.postedBy.valueOf() != user._id.valueOf()) %>
+      <% if(mentee.length > 0) {%>
+      <% let filter = mentor.filter(obj => obj.special.some(e => mentee[0].stack.includes(e)) && obj.postedBy.valueOf() != user._id.valueOf()) %>
       <% for(let i=0; i<filter.length; i++) {%>
 <div class="container mt-4 mb-4">
 <div class="col-lg-12 mt-4 mt-lg-0">
@@ -80,6 +87,7 @@
                   <% } else{ %>
                     <span class="candidate-list-time order-1">No Connection</span>
                     <% } %>
+                   
                 </td>
                 <td>
                   <ul class="list-unstyled mb-0 d-flex justify-content-end">
@@ -95,6 +103,7 @@
   </div>
 </div>
           <% } %> 
+          <% } %>
                 
                 
             

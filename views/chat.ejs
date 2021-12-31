@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -11,9 +11,9 @@
     />
     <link rel="stylesheet" href="chat.css" />
     <title>ChatCord App</title>
+    
   </head>
   <body>
-    
     <div class="chat-container">
       <header class="chat-header">
         <h1><i class="fas fa-sms"></i> VirtualChat</h1>
@@ -31,18 +31,16 @@
         <div class="chat-messages">
 
        
-       <% if (room.length != 0) {%>
-       <% console.log(room)%>
-        <% let filter = messages.filter(obj=> obj.room === room[0].room) %>
-          <% for(let i = 0; i <filter.length; i++) {%>
+     
+          <% for(let i = 0; i <messages.length; i++) {%>
             <div class="message">
-              <p class="meta"><%= filter[i].message.username %> 
-              <span><%= filter[i].message.time %></span>
+              <p class="meta"><%= messages[i].message.username %> 
+              <span><%= messages[i].message.time %></span>
             </p>
-            <p class="text"><%= filter[i].message.text %></p>
+            <p class="text"><%= messages[i].message.text %></p>
             </div>
           <% } %>
-          <% } %>
+          
         </div>
       </main>
       <div class="chat-form-container">
